@@ -1,0 +1,1 @@
+El mayor costo de I/O en el SP 'SP_Prueba' es: 20530
