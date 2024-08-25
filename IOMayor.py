@@ -11,7 +11,7 @@ def extract_io_cost(file_path):
                 if phrase in line:
                     match = re.search(rf"{phrase}\s*([0-9]+(?:\.[0-9]+)?)", line)
                     if match:
-                        io_costs.append(float(match.group(1)))
+                        io_costs.append(int(match.group(1)))
     except FileNotFoundError:
         save_to_file(file_path, "El archivo no se encontró.")
     except Exception as e:
@@ -21,7 +21,7 @@ def extract_io_cost(file_path):
 
 def get_max_io_cost(io_costs):
     if io_costs:
-        IOMayor = int(max(io_costs))
+        IOMayor = max(io_costs)
         return IOMayor
     else:
         return None
