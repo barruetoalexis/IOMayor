@@ -9,7 +9,6 @@ def extract_io_cost(file_path):
         with open(file_path, 'r') as file:
             for line in file:
                 if phrase in line:
-                    # Extrae el número después de la frase usando regex
                     match = re.search(rf"{phrase}\s*([0-9]+(?:\.[0-9]+)?)", line)
                     if match:
                         io_costs.append(float(match.group(1)))
@@ -32,14 +31,12 @@ def save_to_file(file_path, message):
     with open(output_file_path, 'w') as file:
         file.write(message)
 
-# Obtén la ruta absoluta del directorio del script
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Recorre todos los archivos .txt en el directorio
 for filename in os.listdir(script_dir):
     if filename.endswith(".txt") and not filename.endswith("_resultado.txt"):
         file_path = os.path.join(script_dir, filename)
-        # Elimina la extensión del archivo para usarlo en el mensaje
         filename_without_ext = os.path.splitext(filename)[0]
         
         io_costs = extract_io_cost(file_path)
@@ -47,6 +44,5 @@ for filename in os.listdir(script_dir):
         if io_costs:
             IOMayor = get_max_io_cost(io_costs)
             if IOMayor is not None:
-                save_to_file(file_path, f"El mayor costo de I/O en el archivo '{filename_without_ext}' es: {IOMayor}")
-        else:
-            save_to_file(file_path, f"No se encontraron costos de I/O en el archivo '{filename_without_ext}'.")
+                save_to_file(file_path, f"El mayor costo de I/O en el SP '{filename_without_ext}' es: {IOMayor}")
+

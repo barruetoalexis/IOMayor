@@ -1,1 +1,0 @@
-El mayor costo de I/O en el archivo 'sdgdsgsdg' es: 20530
