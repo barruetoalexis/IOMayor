@@ -1,3 +1,7 @@
+INTRODUCCIÓN:
+
+Lo que permetirá este script es mostrar por pantalla el resultado de un SP por pantalla
+
 INDICACIONES DE USO:
 
 1. Sacar el OUTPUT del SP a traves de DBeaver
