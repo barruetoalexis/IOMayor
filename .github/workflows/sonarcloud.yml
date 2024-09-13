@@ -48,8 +48,7 @@ jobs:
     steps:
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
         with:
           entryPoint: sonar-scanner
           args: >
@@ -57,4 +56,4 @@ jobs:
             -Dsonar.organization=pruebas0
             -Dsonar.host.url=https://sonarcloud.io 
             -Dsonar.sources=.
-            -Dsonar.login=${{ env.SONAR_TOKEN }}
+            
