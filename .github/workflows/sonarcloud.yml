@@ -32,24 +32,26 @@ jobs:
           echo "Project already exists."
         fi
   install-sonarscanner:
-    - name: Install Sonar Scanner
-      needs: create-project
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
-        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-        unzip sonar-scanner-cli-4.6.2.2472-linux.zip
-        export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
+    steps:
+      - name: Install Sonar Scanner
+        needs: create-project
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+          unzip sonar-scanner-cli-4.6.2.2472-linux.zip
+          export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
   scan:
-    - name: Run SonarCloud Scan
-      needs: install-sonarscanner
-      uses: SonarSource/sonarcloud-github-action@v2
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        entryPoint: sonar-scanner
-        args: >
-          -Dsonar.projectKey=IOMayor
-          -Dsonar.organization=pruebas0
-          -Dsonar.host.url=https://sonarcloud.io 
-          -Dsonar.sources=.
+    steps:
+      - name: Run SonarCloud Scan
+        needs: install-sonarscanner
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          entryPoint: sonar-scanner
+          args: >
+            -Dsonar.projectKey=IOMayor
+            -Dsonar.organization=pruebas0
+            -Dsonar.host.url=https://sonarcloud.io 
+            -Dsonar.sources=.
