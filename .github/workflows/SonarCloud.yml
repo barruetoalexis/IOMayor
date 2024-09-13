@@ -3,7 +3,7 @@ name: SonarCloud Analysis and Project Creation
 on:
   push:
     branches:
-      - "IOBasic"
+      - 'IOBasic'
 
 jobs:
   sonarcloud:
