@@ -8,7 +8,6 @@ jobs:
   create-project:
     name: SonarCloud
     runs-on: ubuntu-latest
-    environment: EnviromentVariables
     steps:
 
     - name: Checkout code
@@ -45,6 +44,7 @@ jobs:
   scan:
     needs: install-sonarscanner
     runs-on: ubuntu-latest
+    environment: EnviromentVariables
     steps:
       - name: Run SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
