@@ -34,6 +34,7 @@ jobs:
   install-sonarscanner:
     steps:
       - name: Install Sonar Scanner
+        runs-on: ubuntu-latest
         needs: create-project
         run: |
           sudo apt-get update
@@ -44,6 +45,7 @@ jobs:
   scan:
     steps:
       - name: Run SonarCloud Scan
+        runs-on: ubuntu-latest
         needs: install-sonarscanner
         uses: SonarSource/sonarcloud-github-action@v2
         env:
