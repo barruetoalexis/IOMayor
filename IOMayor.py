@@ -23,8 +23,8 @@ def extract_io_cost(file_path):
 
 def get_max_io_cost(io_costs):
     if io_costs:
-        IOMayor = max(io_costs)
-        return IOMayor
+        io = max(io_costs)
+        return io
     else:
         return None
 
@@ -37,8 +37,8 @@ file_path = os.path.join(script_dir, "io.txt")
 io_costs = extract_io_cost(file_path)
 
 if io_costs:
-    IOMayor = get_max_io_cost(io_costs)
-    if IOMayor is not None:
-        show_alert(f"El mayor costo de I/O es: {IOMayor}")
+    io = get_max_io_cost(io_costs)
+    if io is not None:
+        show_alert(f"El mayor costo de I/O es: {io}")
 else:
     show_alert("No se encontraron costos de I/O.")
