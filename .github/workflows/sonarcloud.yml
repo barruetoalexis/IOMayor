@@ -5,7 +5,7 @@ on:
     branches:
       - 'IOBasic'
 jobs:
-  create-project:
+  Create-Project:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -29,8 +29,8 @@ jobs:
         else
           echo "Project already exists."
         fi
-  install-sonarscanner:
-    needs: create-project
+  Install-SonarScanner:
+    needs: Create-Project
     runs-on: ubuntu-latest
     steps:  
       - name: Install Sonar Scanner
@@ -41,7 +41,7 @@ jobs:
           unzip sonar-scanner-cli-4.6.2.2472-linux.zip
           export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
 
-  scan:
+  Scan:
     needs: install-sonarscanner
     runs-on: ubuntu-latest
     environment: EnviromentVariables
