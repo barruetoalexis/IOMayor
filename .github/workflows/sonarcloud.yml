@@ -39,8 +39,11 @@ jobs:
         export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
 
     - name: Run SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v2.0.0
+      uses: SonarSource/sonarcloud-github-action@v2
       with:
-        organization: 'pruebas0'
-        token: ${{ secrets.SONAR_TOKEN }}
-        projectKey: ${{ github.repository }}
+        entryPoint: sonar-scanner
+        args: >
+          -Dsonar.projectKey=${{ github.repository }} \
+          -Dsonar.organization='pruebas0' \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
