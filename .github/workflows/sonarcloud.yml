@@ -64,9 +64,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Puppeteer
+      - name: Install Puppeteer and Dependencies
         run: |
-          npm init -y
+          sudo apt-get update
+          sudo apt-get install -y wget ca-certificates
+          sudo apt-get install -y libx11-dev libxkbcommon-x11-dev libxcomposite1 libxdamage1 libxrandr2 libfontconfig1 libnss3 libasound2 libgtk-3-0
           npm install puppeteer
 
       - name: Capture screenshot
