@@ -39,6 +39,8 @@ jobs:
         unzip sonar-scanner-cli-4.6.2.2472-linux.zip
         export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
 
+    - name: List files
+      run: ls -R
 
     - name: Run SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v2
