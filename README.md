@@ -11,4 +11,3 @@ INDICACIONES DE USO:
 
 Siguiendo estos pasos se mostrará mediante un alerta el IO Mayor del SP
 
-
