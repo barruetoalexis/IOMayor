@@ -18,7 +18,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         PROJECT_KEY=${{ github.repository }}
-        ORGANIZATION_KEY="pruebas0"
+        ORGANIZATION_KEY='pruebas0'
         
         # Check if project already exists
         PROJECT_EXISTS=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/search?projects=${PROJECT_KEY}" | jq -r '.components | length')
@@ -39,11 +39,8 @@ jobs:
         export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
 
     - name: Run SonarCloud Scan
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        sonar-scanner \
-          -Dsonar.projectKey=${{ github.repository }} \
-          -Dsonar.organization="pruebas0" \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      uses: SonarSource/sonarcloud-github-action@v2.0.0
+      with:
+        organization: 'pruebas0'
+        token: ${{ secrets.SONAR_TOKEN }}
+        projectKey: ${{ github.repository }}
