@@ -51,3 +51,4 @@ jobs:
           -Dsonar.organization=pruebas0
           -Dsonar.host.url=https://sonarcloud.io 
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.sources=.
