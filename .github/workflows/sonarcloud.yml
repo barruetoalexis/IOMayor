@@ -8,7 +8,7 @@ jobs:
   sonarcloud:
     name: SonarCloud Project Creation and Scan
     runs-on: ubuntu-latest
-    env: EnviromentVariables
+    environment: EnviromentVariables
 
     steps:
     - name: Checkout code
