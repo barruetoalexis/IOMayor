@@ -1,0 +1,50 @@
+name: SonarCloud Analysis and Project Creation
+
+on:
+  push:
+    branches:
+      - 'IOBasic'
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Project Creation and Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create SonarCloud Project
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        PROJECT_KEY=${{ github.repository }}
+        ORGANIZATION_KEY="pruebas0"
+        
+        # Check if project already exists
+        PROJECT_EXISTS=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/search?projects=${PROJECT_KEY}" | jq -r '.components | length')
+
+        if [ "$PROJECT_EXISTS" -eq "0" ]; then
+          echo "Project does not exist. Creating the project in SonarCloud..."
+          curl -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/create?project=${PROJECT_KEY}&organization=${ORGANIZATION_KEY}&name=${PROJECT_KEY}"
+        else
+          echo "Project already exists."
+        fi
+
+    - name: Install Sonar Scanner
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+        unzip sonar-scanner-cli-4.6.2.2472-linux.zip
+        export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
+
+    - name: Run SonarCloud Scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=${{ github.repository }} \
+          -Dsonar.organization="pruebas0" \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
