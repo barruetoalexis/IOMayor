@@ -29,7 +29,6 @@ jobs:
         else
           echo "Project already exists."
         fi
-
     - name: Install Sonar Scanner
       run: |
         sudo apt-get update
