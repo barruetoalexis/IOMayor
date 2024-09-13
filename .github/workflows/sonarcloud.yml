@@ -49,3 +49,39 @@ jobs:
           -Dsonar.projectKey=IOMayor
           -Dsonar.organization=pruebas0
           -Dsonar.host.url=https://sonarcloud.io 
+
+
+  Screenshot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Puppeteer
+        run: |
+          npm init -y
+          npm install puppeteer
+
+      - name: Capture screenshot
+        run: |
+          node -e "const puppeteer = require('puppeteer'); \
+            (async () => { \
+              const browser = await puppeteer.launch(); \
+              const page = await browser.newPage(); \
+              await page.setViewport({ width: 1920, height: 1080 }); /* Ajusta el tamaño de la ventana */ \
+              await page.goto('https://sonarcloud.io/summary/new_code?id=IOMayor&branch=IOBasic'); \
+              await page.screenshot({ path: 'screenshot.png', fullPage: true }); /* Captura de pantalla completa */ \
+              await browser.close(); \
+            })();"
+
+      - name: Upload screenshot as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshot
+          path: screenshot.png
