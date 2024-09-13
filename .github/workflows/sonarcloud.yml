@@ -71,7 +71,6 @@ jobs:
 
       - name: Capture screenshot
         run: |
-        run: |
           node -e "const puppeteer = require('puppeteer'); \
             (async () => { \
               const browser = await puppeteer.launch({ headless: false }); /* Cambia a true para ejecutar en modo headless */ \
