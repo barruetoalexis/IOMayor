@@ -53,6 +53,7 @@ jobs:
 
   Screenshot:
     runs-on: ubuntu-latest
+    needs: Sonarcloud
 
     steps:
       - name: Checkout code
