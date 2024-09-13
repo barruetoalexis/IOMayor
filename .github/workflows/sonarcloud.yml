@@ -6,11 +6,11 @@ on:
       - 'IOBasic'
 jobs:
   create-project:
-    
     name: SonarCloud
     runs-on: ubuntu-latest
     environment: EnviromentVariables
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -31,6 +31,7 @@ jobs:
           echo "Project already exists."
         fi
   install-sonarscanner:
+    needs: create-project
     runs-on: ubuntu-latest
     steps:  
       - name: Install Sonar Scanner
@@ -42,6 +43,7 @@ jobs:
           export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
 
   scan:
+    needs: install-sonarscanner
     runs-on: ubuntu-latest
     steps:
       - name: Run SonarCloud Scan
