@@ -71,13 +71,26 @@ jobs:
 
       - name: Capture screenshot
         run: |
+        run: |
           node -e "const puppeteer = require('puppeteer'); \
             (async () => { \
-              const browser = await puppeteer.launch(); \
+              const browser = await puppeteer.launch({ headless: false }); /* Cambia a true para ejecutar en modo headless */ \
               const page = await browser.newPage(); \
-              await page.setViewport({ width: 1920, height: 1080 }); /* Ajusta el tamaño de la ventana */ \
+              await page.setViewport({ width: 1920, height: 1080 }); \
+              await page.goto('https://sonarcloud.io/login?return_to=%2Fexplore%2Fprojects'); /* URL de la página que usa GitHub para autenticación */ \
+              await page.click('a[href*=\"github.com/login\"]'); /* Haz clic en el botón de inicio de sesión con GitHub */ \
+              /* Espera a que la página de GitHub se cargue */ \
+              await page.waitForSelector('input[name=\"login\"]'); \
+              await page.type('input[name=\"login\"]', process.env.GITHUB_USERNAME); \
+              await page.type('input[name=\"password\"]', process.env.GITHUB_PASSWORD); \
+              await page.click('input[name=\"commit\"]'); /* Haz clic en el botón de inicio de sesión en GitHub */ \
+              await page.waitForNavigation(); /* Espera a que la navegación se complete */ \
+              /* Captura de la primera URL después de iniciar sesión */ \
               await page.goto('https://sonarcloud.io/summary/new_code?id=IOMayor&branch=IOBasic'); \
-              await page.screenshot({ path: 'screenshot.png', fullPage: true }); /* Captura de pantalla completa */ \
+              await page.screenshot({ path: 'screenshot1.png', fullPage: true }); \
+              /* Captura de la segunda URL después de iniciar sesión */ \
+              await page.goto('https://sonarcloud.io/project/issues?issueStatuses=OPEN%2CCONFIRMED&branch=IOBasic&id=IOMayor'); \
+              await page.screenshot({ path: 'screenshot2.png', fullPage: true }); \
               await browser.close(); \
             })();"
 
