@@ -45,7 +45,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run SonarCloud Scan
-        needs: install-sonarscanner
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
