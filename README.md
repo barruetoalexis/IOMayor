@@ -10,3 +10,4 @@ INDICACIONES DE USO:
 4. Ejecutar el IOMayor.pyw
 
 Siguiendo estos pasos se mostrará mediante un alerta el IO Mayor del SP
+
